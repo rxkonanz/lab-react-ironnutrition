@@ -4,9 +4,9 @@ body {
   font-family: sans-serif;
 }
 .box {
-  width: 450px;
+  width: 500px;
 }
-.App {
+.content {
   display: flex;
 }
 .todaysFood {
