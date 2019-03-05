@@ -9,3 +9,7 @@ body {
 .App {
   display: flex;
 }
+.todaysFood {
+  text-align: left;
+  margin-left: 20px;
+}

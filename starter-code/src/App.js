@@ -8,7 +8,9 @@ class App extends Component {
   
   state = {
     foods: foods,
-    todaysFood: []
+    todaysFood: [],
+    value: 1,
+    totalCalories: 0
   }
 
   showFood = () => {
@@ -32,9 +34,10 @@ class App extends Component {
                   <div className="field has-addons">
                     <div className="control">
                       <input
+                        onChange={()=>{this.changeQty(food)}}
                         className="input"
                         type="number" 
-                        value="1"
+                        value={food.quantity}
                       />
                     </div>
                     <div className="control">
@@ -52,7 +55,7 @@ class App extends Component {
 
   todaysFood = () => {
     let list = this.state.todaysFood.map((food, i) => {
-      return <li>{food.name}</li>
+      return <li>{food.quantity} {food.name} = {Number(food.calories)*Number(food.quantity)} cal</li>
     })
     return list;
   }
@@ -60,6 +63,15 @@ class App extends Component {
   addFood = (food) => {
     let updatedTodaysFood = [...this.state.todaysFood]
     updatedTodaysFood.push(food)
+    this.setState ({
+      todaysFood: updatedTodaysFood,
+      totalCalories: this.state.totalCalories + (Number(food.calories)*Number(food.quantity))
+    })
+  }
+
+  changeQty = (food) => {
+    let updatedTodaysFood = [...this.state.todaysFood]
+    food.quantity += 1
     this.setState ({
       todaysFood: updatedTodaysFood
     })
@@ -72,7 +84,9 @@ class App extends Component {
           {this.showFood()}
         </div>
         <div class="todaysFood">
+          <h2>Today's Food</h2>
           <ul>{this.todaysFood()}</ul>
+          <p>Total: {this.state.totalCalories} cal</p>
         </div>
       </div>
     );
